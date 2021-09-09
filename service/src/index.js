@@ -2,8 +2,8 @@ var AWS = require("aws-sdk");
 
 AWS.config.update({
     region: "us-west-2",
-    accessKeyId: "AKIA6HNCZ5YCHBK343UC",
-    secretAccessKey: "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"
+    accessKeyId: "",
+    secretAccessKey: ""
 });
 
 module.exports.getJewelry = async (event, context) => {
