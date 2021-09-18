@@ -1,6 +1,6 @@
 const httpResponse = (value, code = 200) => {
     return {
-        code,
+        statusCode: code,
         body: JSON.stringify(value)
     }
 }

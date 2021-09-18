@@ -1,3 +1,5 @@
+org: qendresa
+app: jewerly-store
 service: jewerly-service
 
 plugins:
@@ -5,11 +7,20 @@ plugins:
 
 provider:
   name: aws
-  runtime: nodejs4.3
+  runtime: nodejs14.x
   stage: dev
   region: us-east-1
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:*
+      Resource: "*"
+  environment:
+    JEWELRY_STORE_TABLE_NAME: serverless-present-x
 
 functions:
   - ${file(./serverless/functions/jewelry.yml)}
+resources:
+  - ${file(./resources/dynamo-table.yml)}
 
 useDotenv: true

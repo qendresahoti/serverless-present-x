@@ -2,11 +2,13 @@ const jewelryService = require('./service/jewelry')
 const util = require('./util')
 
 module.exports.addJewelry = async (event, context) => {
-    const item = JSON.parse(event.body);
+    console.log("add jewelry call", event)
     try {
+        const item = JSON.parse(event.body);
         const result = await jewelryService.addJewelry(item);
         return util.httpResponse(result)
     } catch (e) {
+        console.log("errori", e)
         return util.httpResponse({
             message: "Failed to add new jewelry"
         }, 500)
