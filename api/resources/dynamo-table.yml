@@ -1,0 +1,18 @@
+#Resources:
+#  ServerlessPrezentXTable:
+#    Type: 'AWS::DynamoDB::Table'
+#    Properties:
+#      AttributeDefinitions:
+#        - AttributeName: "product"
+#          AttributeType: "P"
+#        - AttributeName: "name"
+#          AttributeType: "N"
+#      KeySchema:
+#        - AttributeName: "product"
+#          KeyType: HASH
+#        - AttributeName: "name"
+#          KeyType: RANGE
+#      ProvisionedThroughput:
+#        ReadCapacityUnits: 10
+#        WriteCapacityUnits: 10
+#      TableName: 'serverless-present-x'

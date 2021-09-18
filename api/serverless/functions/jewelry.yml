@@ -1,0 +1,42 @@
+getJewelry:
+  handler: src/index.getJewelry
+  timeout: 30
+  events:
+    - http:
+        path: jewelry/{name}
+        method: GET
+addJewelry:
+  handler: src/index.addJewelry
+  timeout: 30
+  events:
+    - http:
+        path: jewelry
+        method: POST
+getAllJewelry:
+  handler: src/index.getAllJewelry
+  timeout: 30
+  events:
+    - http:
+        path: jewelry
+        method: GET
+updateJewelryChangeShape:
+  handler: src/index.updateJewelryChangeShape
+  timeout: 30
+  events:
+    - http:
+        path: jewelry/{name}
+        method: PATCH
+#updateJewelry:
+#  handler: src/index.updateJewelry
+#  timeout: 30
+#  events:
+#    - http:
+#        path: jewelry
+#        method: PUT
+#deleteJewelry:
+#  handler: src/index.deleteJewelry
+#  timeout: 30
+#  events:
+#    - http:
+#        path: jewelry
+#        method: DELETE

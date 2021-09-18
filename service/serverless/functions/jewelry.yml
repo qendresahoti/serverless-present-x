@@ -1,7 +1,0 @@
-getJewelry:
-  handler: src/index.getJewelry
-  timeout: 30
-  events:
-    - http:
-        path: jewelry
-        method: GET
