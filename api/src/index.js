@@ -1,13 +1,5 @@
-const AWS = require("aws-sdk");
 const jewelryService = require('./service/jewelry')
 const util = require('./util')
-
-AWS.config.update({
-
-});
-
-const table = "serverless-present-x";
-const docClient = new AWS.DynamoDB.DocumentClient();
 
 module.exports.addJewelry = async (event, context) => {
     const item = JSON.parse(event.body);
@@ -16,30 +8,19 @@ module.exports.addJewelry = async (event, context) => {
         return util.httpResponse(result)
     } catch (e) {
         return util.httpResponse({
-            message: "Test"
+            message: "Failed to add new jewelry"
         }, 500)
     }
 }
 
-module.exports.getAllJewelry = async (event, context) => {
-    let params = {
-        TableName: table,
-        KeyConditionExpression: "#pk = :pk",
-        ExpressionAttributeNames: {
-            "#pk": "pk"
-        },
-        ExpressionAttributeValues: {
-            ":pk": "product"
-        }
-    }
-
+module.exports.getAllJewelry = async () => {
     try {
-        const result = await jewelryService.getAllJewelry(params)
+        const result = await jewelryService.getAllJewelry()
         return util.httpResponse(result)
 
     } catch (error) {
         return util.httpResponse({
-            message: "Test"
+            message: "Failed to get all jewelry"
         }, 500)
     }
 }
@@ -47,13 +28,12 @@ module.exports.getAllJewelry = async (event, context) => {
 
 module.exports.getJewelry = async (event, context) => {
     const name = event.pathParameters.name;
-
     try {
         const result = await jewelryService.getJewelry(name);
         return util.httpResponse(result)
     } catch (error) {
         return util.httpResponse({
-            message: "Test"
+            message: "Failed to get jewelry"
         }, 500)
     }
 }
@@ -61,7 +41,6 @@ module.exports.getJewelry = async (event, context) => {
 module.exports.updateJewelryChangeShape = async (event) => {
     let name = event.pathParameters.name;
     const item = JSON.parse(event.body)
-
     try {
         const result = await jewelryService.updateJewelryChangeShape(name, item.shape);
         return util.httpResponse(result)
@@ -74,7 +53,6 @@ module.exports.updateJewelryChangeShape = async (event) => {
 
 module.exports.deleteJewelry = async (event) => {
     let name = event.pathParameters.name;
-
     try {
         let result = await jewelryService.deleteJewelry(name)
         return util.httpResponse(result)

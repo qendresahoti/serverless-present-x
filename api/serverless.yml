@@ -11,3 +11,5 @@ provider:
 
 functions:
   - ${file(./serverless/functions/jewelry.yml)}
+
+useDotenv: true

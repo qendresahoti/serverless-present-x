@@ -1,12 +1,5 @@
-const AWS = require("aws-sdk");
-
-AWS.config.update({
-    region: "us-west-2",
-    accessKeyId: "AKIA6HNCZ5YCHBK343UC",
-    secretAccessKey: "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"
-});
-
-const table = "serverless-present-x";
+const { AWS } = require('../util/aws-config')
+const JEWELRY_STORE_TABLE_NAME = process.env.JEWELRY_STORE_TABLE_NAME;
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 /**
@@ -20,7 +13,7 @@ module.exports.addJewelry = async (item) => {
         ...item
     }
     const params = {
-        TableName: table,
+        TableName: JEWELRY_STORE_TABLE_NAME,
         Item
     };
     await docClient.put(params).promise();
@@ -34,7 +27,17 @@ module.exports.addJewelry = async (item) => {
  * @param {object} items - The items to be fetched.
  */
 
-module.exports.getAllJewelry = async (params) => {
+module.exports.getAllJewelry = async () => {
+    let params = {
+        TableName: JEWELRY_STORE_TABLE_NAME,
+        KeyConditionExpression: "#pk = :pk",
+        ExpressionAttributeNames: {
+            "#pk": "pk"
+        },
+        ExpressionAttributeValues: {
+            ":pk": "product"
+        }
+    }
     const result = await docClient.query(params).promise();
     console.log("result", result)
     return result;
@@ -47,7 +50,7 @@ module.exports.getAllJewelry = async (params) => {
 
 module.exports.getJewelry = async (name) => {
     let params = {
-        TableName: table,
+        TableName: JEWELRY_STORE_TABLE_NAME,
         Key: {
             pk: "product",
             sk: `product::${name.toLowerCase()}`
@@ -66,7 +69,7 @@ module.exports.getJewelry = async (name) => {
 
 module.exports.updateJewelryChangeShape = async (name, shape) => {
     let params = {
-        TableName: table,
+        TableName: JEWELRY_STORE_TABLE_NAME,
         Key: {
             pk: "product",
             sk: `product::${name.toLowerCase()}`
@@ -89,7 +92,7 @@ module.exports.updateJewelryChangeShape = async (name, shape) => {
 
 module.exports.deleteJewelry = async (name) => {
     let params = {
-        TableName: table,
+        TableName: JEWELRY_STORE_TABLE_NAME,
         Key: {
             pk: "product",
             sk: `product::${name.toLowerCase()}`
