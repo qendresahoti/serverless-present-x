@@ -67,26 +67,20 @@ module.exports.updateJewelryChangeShape = async (event) => {
         return util.httpResponse(result)
     } catch (error) {
         return util.httpResponse({
-            message: "Test"
+            message: "Failed to update an item"
         }, 500)
     }
 }
-//
-// module.exports.deleteJewelry = async () => {
-//     let params = {
-//         TableName: table,
-//         Key: {
-//             "year": year,
-//             "name": name
-//         }
-//     }
-//
-//     let result = await docClient.delete(params).promise();
-//
-//     return {
-//         body: JSON.stringify({
-//             message: "deleted succesfully",
-//             data: result
-//         })
-//     }
-// }
+
+module.exports.deleteJewelry = async (event) => {
+    let name = event.pathParameters.name;
+
+    try {
+        let result = await jewelryService.deleteJewelry(name)
+        return util.httpResponse(result)
+    } catch (error) {
+        return util.httpResponse({
+            message: "Failed to delete an item",
+        }, 500)
+    }
+}

@@ -26,17 +26,10 @@ updateJewelryChangeShape:
     - http:
         path: jewelry/{name}
         method: PATCH
-#updateJewelry:
-#  handler: src/index.updateJewelry
-#  timeout: 30
-#  events:
-#    - http:
-#        path: jewelry
-#        method: PUT
-#deleteJewelry:
-#  handler: src/index.deleteJewelry
-#  timeout: 30
-#  events:
-#    - http:
-#        path: jewelry
-#        method: DELETE
+deleteJewelry:
+  handler: src/index.deleteJewelry
+  timeout: 30
+  events:
+    - http:
+        path: jewelry/{name}
+        method: DELETE

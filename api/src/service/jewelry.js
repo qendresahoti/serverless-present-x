@@ -81,3 +81,21 @@ module.exports.updateJewelryChangeShape = async (name, shape) => {
     console.log("result", result)
     return result;
 }
+
+/**
+ * Delete one record from the db.
+ * @param {object} item - The item to be deleted.
+ */
+
+module.exports.deleteJewelry = async (name) => {
+    let params = {
+        TableName: table,
+        Key: {
+            pk: "product",
+            sk: `product::${name.toLowerCase()}`
+        }
+    };
+    const result = await docClient.delete(params).promise();
+    console.log("result", result)
+    return result;
+}
