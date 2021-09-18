@@ -27,3 +27,15 @@ module.exports.addJewelry = async (item) => {
 
     return Item;
 }
+
+
+/**
+ * Get all items from the db.
+ * @param {object} item - The item to be inserted.
+ */
+
+module.exports.getAllJewelry = async (params) => {
+    const result = await docClient.query(params).promise();
+    console.log("result", result)
+    return result;
+}

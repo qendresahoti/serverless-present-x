@@ -22,8 +22,6 @@ module.exports.addJewelry = async (event, context) => {
 }
 
 module.exports.getAllJewelry = async (event, context) => {
-    // const docClient = new AWS.DynamoDB.DocumentClient();
-    // const table = "serverless-present-x";
     let params = {
         TableName: table,
         KeyConditionExpression: "#pk = :pk",
@@ -35,20 +33,14 @@ module.exports.getAllJewelry = async (event, context) => {
         }
     }
 
-    console.log("getting items...");
     try {
-        let result = await docClient.query(params).promise();
+        const result = await jewelryService.getAllJewelry(params)
+        return util.httpResponse(result)
 
-        console.log(result);
-
-        return {
-            body: JSON.stringify({
-                message: "Executed succesfully",
-                data: result
-            })
-        }
     } catch (error) {
-        console.log(error);
+        return util.httpResponse({
+            message: "Test"
+        }, 500)
     }
 }
 
