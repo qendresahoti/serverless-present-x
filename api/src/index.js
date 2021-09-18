@@ -46,59 +46,29 @@ module.exports.getAllJewelry = async (event, context) => {
 
 
 module.exports.getJewelry = async (event, context) => {
-    // const docClient = new AWS.DynamoDB.DocumentClient();
-    console.log("paramters-", event.pathParameters);
-    // const table = "serverless-present-x";
-    let params = {
-        TableName: table,
-        Key: {
-            pk: "product",
-            sk: `product::${event.pathParameters.name.toLowerCase()}`
-        }
-    }
+    const name = event.pathParameters.name;
 
-    console.log("getting items...");
     try {
-        let result = await docClient.get(params).promise();
-
-        console.log(result);
-
-        return {
-            body: JSON.stringify({
-                message: "Executed succesfully",
-                data: result
-            })
-        }
+        const result = await jewelryService.getJewelry(name);
+        return util.httpResponse(result)
     } catch (error) {
-        console.log(error);
+        return util.httpResponse({
+            message: "Test"
+        }, 500)
     }
 }
 
 module.exports.updateJewelryChangeShape = async (event) => {
-    let item = JSON.parse(event.body)
-    let params = {
-        TableName: table,
-        Key: {
-            pk: "product",
-            sk: `product::${event.pathParameters.name.toLowerCase()}`
-        },
-        UpdateExpression: "set shape = :shape",
-        ExpressionAttributeValues: {
-            ":shape": item.shape
-        },
-        ReturnValues: "UPDATED_NEW"
-    };
+    let name = event.pathParameters.name;
+    const item = JSON.parse(event.body)
 
     try {
-        let result = await docClient.update(params).promise();
-        return {
-            body: JSON.stringify({
-                message: "updated succesfully",
-                data: result
-            })
-        }
+        const result = await jewelryService.updateJewelryChangeShape(name, item.shape);
+        return util.httpResponse(result)
     } catch (error) {
-        console.log(error);
+        return util.httpResponse({
+            message: "Test"
+        }, 500)
     }
 }
 //
