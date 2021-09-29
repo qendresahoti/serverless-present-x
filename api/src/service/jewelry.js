@@ -23,27 +23,6 @@ module.exports.addJewelry = async (item) => {
 
 
 /**
- * Get all items from the db.
- * @param {object} items - The items to be fetched.
- */
-
-module.exports.getAllJewelry = async () => {
-    let params = {
-        TableName: JEWELRY_STORE_TABLE_NAME,
-        KeyConditionExpression: "#pk = :pk",
-        ExpressionAttributeNames: {
-            "#pk": "pk"
-        },
-        ExpressionAttributeValues: {
-            ":pk": "product"
-        }
-    }
-    const result = await docClient.query(params).promise();
-    console.log("result", result)
-    return result;
-}
-
-/**
  * Get one item from the db.
  * @param {object} item - The item to be fetched.
  */

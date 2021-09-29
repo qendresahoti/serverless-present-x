@@ -8,21 +8,8 @@ module.exports.addJewelry = async (event, context) => {
         const result = await jewelryService.addJewelry(item);
         return util.httpResponse(result)
     } catch (e) {
-        console.log("errori", e)
         return util.httpResponse({
             message: "Failed to add new jewelry"
-        }, 500)
-    }
-}
-
-module.exports.getAllJewelry = async () => {
-    try {
-        const result = await jewelryService.getAllJewelry()
-        return util.httpResponse(result)
-
-    } catch (error) {
-        return util.httpResponse({
-            message: "Failed to get all jewelry"
         }, 500)
     }
 }

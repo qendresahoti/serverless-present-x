@@ -12,13 +12,6 @@ addJewelry:
     - http:
         path: jewelry
         method: POST
-getAllJewelry:
-  handler: src/index.getAllJewelry
-  timeout: 30
-  events:
-    - http:
-        path: jewelry
-        method: GET
 updateJewelryChangeShape:
   handler: src/index.updateJewelryChangeShape
   timeout: 30
